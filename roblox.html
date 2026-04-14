@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Alexander Guzman — Roblox development in Lua. Side projects and game scripting portfolio."
+    />
+    <title>Alexander Guzman — Roblox &amp; Lua</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="page-roblox">
+    <div class="scroll-progress" aria-hidden="true">
+      <span class="scroll-progress-bar" id="scroll-progress"></span>
+    </div>
+
+    <div class="stars" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="logo" href="index.html">Alexander Guzman</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html" class="nav-external">Resume</a>
+        <a href="#overview">Overview</a>
+        <a href="#projects">Games</a>
+        <a href="index.html#contact" class="nav-cta">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero rbx-hero">
+        <p class="rbx-badge">
+          <span class="rbx-badge-dot" aria-hidden="true"></span>
+          Roblox · Lua · Side projects
+        </p>
+        <h1>
+          Scripting on Roblox for
+          <em>~four years</em>
+          — gameplay, UI, and live ops.
+        </h1>
+        <p class="hero-lead">
+          This page is a dedicated space for my Roblox work: independent and
+          collaborative Lua scripting across different games. Swap in real titles,
+          thumbnails, and links below when you are ready.
+        </p>
+        <div class="hero-meta">
+          <span class="pill">Lua</span>
+          <span class="pill">Gameplay scripting</span>
+          <span class="pill">UI &amp; client behavior</span>
+          <span class="pill">Live experiences</span>
+        </div>
+      </section>
+
+      <section id="overview" class="section panel" data-reveal>
+        <h2>Overview</h2>
+        <p class="section-lead">
+          Practical Lua experience outside traditional employment
+        </p>
+        <p>
+          For roughly four years I treated Roblox as a serious side hustle:
+          shipping updates, fixing bugs under player pressure, and coordinating with
+          other creators. That meant readable Lua, predictable networking patterns
+          where needed, and a habit of validating behavior in a live, multiplayer
+          environment.
+        </p>
+        <p>
+          Employers sometimes ask whether hobby game work “counts.” It demonstrates
+          sustained coding practice, ownership, and collaboration — especially when
+          you can point to shipped places and consistent updates.
+        </p>
+      </section>
+
+      <section id="projects" class="section panel" data-reveal>
+        <div class="section-head">
+          <h2>Games &amp; contributions</h2>
+          <p class="section-lead section-lead-tight">
+            Live experiences I have contributed to — open world collection, hardcore
+            PvP, and asymmetric multiplayer with matchmaking.
+          </p>
+        </div>
+
+        <div class="rbx-game-grid">
+          <article class="rbx-game-card" data-tilt style="--rbx: linear-gradient(145deg, #3d2463 0%, #1e1530 55%, #4a1e28 100%)">
+            <div class="rbx-game-thumb">Beastiels</div>
+            <div class="rbx-game-body">
+              <h3>Beastiels — Catch Wild Beast</h3>
+              <p>
+                The collection loop is backed by a <strong>ModuleScript</strong> that
+                handles <strong>rarity</strong> — spawn rolls, weight tables, and tier
+                logic stay in one place so drops stay fair and easy to tune. The world is
+                split into <strong>regions</strong> (including biomes like Desert and
+                Swamp from update 1.1); each region maps to its own <strong>catch
+                pools</strong>, so which Beastiels appear depends on where you are, not
+                one flat global list. On top of that, a <strong>money / economy</strong>
+                system, <strong>NPC</strong> behavior (including the Mysterious Seller),
+                and <strong>Beastlog</strong> tracking tie captures and progression
+                together so the open-world loop stays coherent.
+              </p>
+              <ul class="tag-row rbx-tags" aria-label="Tech and features">
+                <li>ModuleScript · rarity</li>
+                <li>Regional catch pools</li>
+                <li>Economy &amp; NPCs</li>
+                <li>Beastlog</li>
+              </ul>
+              <div class="rbx-links">
+                <a
+                  href="https://www.roblox.com/games/129369617515377/Beastiels-Catch-Wild-Beast"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Play on Roblox</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="rbx-game-card" data-tilt style="--rbx: linear-gradient(145deg, #1e3d5c 0%, #122030 50%, #2a2048 100%)">
+            <div class="rbx-game-thumb">Drifters · Alpha</div>
+            <div class="rbx-game-body">
+              <h3>Drifters <span class="rbx-sub">(early testing / alpha)</span></h3>
+              <p class="rbx-tagline">
+                <em>Drift along the edge between life and death — one life, intense PvP.</em>
+              </p>
+              <p>
+                Combat is organized in <strong>ModuleScripts</strong> so parry timing,
+                <strong>guard break</strong> rules, and stamina-like pressure stay
+                reusable on both client (feel) and server (authority).
+                <strong>RemoteEvents</strong> carry combat intents and outcomes — swings,
+                blocks, and hits are validated server-side so the hardcore
+                <strong>one-life</strong> rules cannot be spoofed locally.
+                <strong>Ray casting</strong> backs melee and interaction checks (what you
+                can hit, line-of-sight for certain actions). Wall
+                <strong>climbing</strong> uses scripted movement / collision checks so
+                traversal stays consistent with the same combat space players fight in.
+              </p>
+              <ul class="tag-row rbx-tags" aria-label="Tech and features">
+                <li>ModuleScripts · combat</li>
+                <li>RemoteEvents</li>
+                <li>Ray casting</li>
+                <li>Climbing &amp; PvP</li>
+              </ul>
+              <div class="rbx-links">
+                <a
+                  href="https://www.roblox.com/games/15949357430/Drifters"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Play on Roblox</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="rbx-game-card" data-tilt style="--rbx: linear-gradient(145deg, #2d4a3e 0%, #14261f 45%, #3d2a1a 100%)">
+            <div class="rbx-game-thumb">Resilience · 5v1</div>
+            <div class="rbx-game-body">
+              <h3>Resilience</h3>
+              <p>
+                Core mode is <strong>5 survivors vs 1 killer</strong>: survivors work
+                through <strong>puzzle</strong> objectives while the killer hunts; roles,
+                win conditions, and round phase are enforced from the server. A
+                <strong>party system</strong> tracks who is grouped, who has
+                <strong>readied up</strong>, and how many seats each party contributes.
+                The <strong>matchmaking</strong> layer merges parties until the lobby
+                satisfies a full <strong>five survivors and one killer</strong> — e.g.
+                two players in one party plus three in another still resolve to the same
+                5v1 layout instead of breaking the mode. <strong>RemoteEvents</strong> (or
+                similar client–server channels) carry queue updates, match start, and
+                in-round signals so puzzle state and eliminations stay authoritative.
+              </p>
+              <ul class="tag-row rbx-tags" aria-label="Tech and features">
+                <li>Party + ready flow</li>
+                <li>Matchmaking / merging</li>
+                <li>5v1 roles &amp; puzzles</li>
+                <li>Server authority</li>
+              </ul>
+              <div class="rbx-links">
+                <a
+                  href="https://www.roblox.com/games/75467715022618/Resilience"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Play on Roblox</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section panel" data-reveal>
+        <h2>Back to full resume</h2>
+        <p class="section-lead">
+          IT support, software roles, education, and contact live on the main page.
+        </p>
+        <p>
+          <a class="btn-link" href="index.html">View interactive resume</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© <span id="year"></span> Alexander Guzman — Roblox portfolio.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
