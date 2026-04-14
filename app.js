@@ -5,9 +5,7 @@
 
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-  /** Higher = rocket reaches the top after less scrolling (more “obvious”). */
   const ROCKET_SCROLL_GAIN = 2.15;
-  /** Vertical travel: larger = rocket starts lower / ends higher relative to viewport. */
   const ROCKET_START_VH = 0.88;
   const ROCKET_END_OFFSET = 18;
   const ROCKET_SWAY_PX = 10;
