@@ -186,16 +186,14 @@
 
     if (trigger && panel) {
       trigger.addEventListener("click", function (e) {
-        e.stopPropagation();
+        e.preventDefault();
         setOpen(!isOpen());
       });
 
-      document.addEventListener("click", function () {
-        if (isOpen()) setOpen(false);
-      });
-
-      navDropdown.addEventListener("click", function (e) {
-        e.stopPropagation();
+      document.addEventListener("click", function (e) {
+        if (!navDropdown.contains(e.target) && isOpen()) {
+          setOpen(false);
+        }
       });
 
       document.addEventListener("keydown", function (e) {
