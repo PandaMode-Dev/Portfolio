@@ -1,9 +1,6 @@
-/* global createPortableRng, bootstrapSimFromArena, observe, forward, stepSim, hitLethalLaser, hitSpikes, handleStreamPacket */
-/**
- * In-browser genetic algorithm for static hosting (GitHub Pages).
- * Uses the same simulation + MLP as assets/app.js when the Python API is unavailable.
- */
+// |---In-browser evolution (static hosting fallback)---|
 (function () {
+  // |---Network size helpers---|
   function mlpSizes(numRays, hidden) {
     return [numRays + 4, hidden, 2];
   }
@@ -12,6 +9,7 @@
     return inp * hidden + hidden + hidden * out + out;
   }
 
+  // |---Arena JSON for one layout---|
   function buildArenaTemplate(p, layoutSeed, inp, hid, out, nWeights) {
     const w = p.width;
     const h = p.height;
@@ -85,6 +83,7 @@
     return "laser";
   }
 
+  // |---Run one agent until episode ends---|
   function evaluateGenome(flat, arenaTpl) {
     const arena = JSON.parse(JSON.stringify(arenaTpl));
     const sim = bootstrapSimFromArena(arena);
@@ -110,6 +109,7 @@
     }
   }
 
+  // |---Death and fitness summary for one generation---|
   function aggregateGenerationStats(summaries, population, maxSteps) {
     let laser = 0;
     let spike = 0;
@@ -164,6 +164,7 @@
     };
   }
 
+  // |---Mutation and breeding---|
   function mutateFlat(g, rate, sigma, rng) {
     for (let i = 0; i < g.length; i++) {
       if (rng.uniform(0, 1) < rate) {
@@ -257,6 +258,7 @@
     return { fitness, summaries };
   }
 
+  // |---Full GA loop feeding the existing UI---|
   window.runLaserEvolveClient = async function runLaserEvolveClient(payload) {
     const generations = payload.generations;
     const population = payload.population;

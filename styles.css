@@ -1,3 +1,4 @@
+/* |---Design tokens---| */
 :root {
   --bg-deep: #070712;
   --bg-panel: rgba(18, 20, 35, 0.78);
@@ -16,6 +17,7 @@
   font-synthesis: none;
 }
 
+/* |---Scroll progress bar---| */
 .scroll-progress {
   position: fixed;
   top: 0;
@@ -64,6 +66,7 @@ body {
   }
 }
 
+/* |---Background atmosphere---| */
 .stars {
   position: fixed;
   inset: 0;
@@ -90,6 +93,7 @@ body {
   opacity: 0.7;
 }
 
+/* |---Top navigation---| */
 .site-header {
   position: fixed;
   top: 0;
@@ -396,6 +400,7 @@ body {
   line-height: 1;
 }
 
+/* |---Main column---| */
 main {
   position: relative;
   z-index: 10;
@@ -404,6 +409,7 @@ main {
   margin: 0 auto;
 }
 
+/* |---Hero---| */
 .hero {
   min-height: 72vh;
   padding-bottom: 3rem;
@@ -525,6 +531,7 @@ main {
   }
 }
 
+/* |---Resume sections---| */
 .section {
   margin-bottom: 3.5rem;
 }
@@ -673,6 +680,7 @@ body.motion-reduced [data-reveal] {
   margin-bottom: 0;
 }
 
+/* |---Portfolio work cards---| */
 .work-grid {
   display: grid;
   gap: 1.75rem;
@@ -799,6 +807,7 @@ body.motion-reduced [data-reveal] {
   gap: 0.6rem;
 }
 
+/* |---Buttons---| */
 .btn-link {
   display: inline-flex;
   align-items: center;
@@ -832,6 +841,7 @@ body.motion-reduced [data-reveal] {
   background: rgba(124, 108, 255, 0.1);
 }
 
+/* |---Contact links---| */
 .contact a {
   color: var(--accent);
   text-decoration: none;
@@ -841,6 +851,7 @@ body.motion-reduced [data-reveal] {
   text-decoration: underline;
 }
 
+/* |---Footer---| */
 .site-footer {
   position: relative;
   z-index: 10;
@@ -911,7 +922,7 @@ body.motion-reduced .work-card:hover {
   transform: none;
 }
 
-/* ---- Roblox portfolio page ---- */
+/* |---Roblox portfolio page---| */
 body.page-roblox {
   --accent: #e9423a;
   --accent-soft: rgba(233, 66, 58, 0.35);

@@ -1,5 +1,4 @@
-/* global document, window, fetch, requestAnimationFrame, cancelAnimationFrame */
-
+// |---Laser Evade simulation and UI---|
 function distPointSegment(p, a, b) {
   const abx = b[0] - a[0];
   const aby = b[1] - a[1];
@@ -309,7 +308,7 @@ function spikeHitLimit(sim) {
   return sim.agentR + (sim.spikeThickness * 0.5) * sc;
 }
 
-/** Shorten segment from wall end so hit tube matches playable beam (matches env.py). */
+// |---Laser hit geometry---|
 function shrinkSegmentFromStart(a, b, agentR) {
   const vx = b[0] - a[0];
   const vy = b[1] - a[1];
@@ -577,7 +576,7 @@ function cloneSimFromArena(arena) {
   return bootstrapSimFromArena(arena);
 }
 
-/** --- UI --- */
+// |---Arena UI wiring---|
 
 const $ = (id) => document.getElementById(id);
 
@@ -589,7 +588,7 @@ const cctx = chartCanvas.getContext("2d");
 let evolutionResult = null;
 let sim = null;
 let genomeFlat = null;
-/** Parallel replay: one sim + genome per displayed individual (subset if population is huge). */
+// |---Parallel swarm replay---|
 let swarmSims = [];
 let swarmGenomes = [];
 let swarmTerminated = [];
@@ -601,11 +600,9 @@ let currentGenIndex = 0;
 let lastGenomeKey = "";
 let streamGenerationsTotal = 0;
 let evolutionStreamDone = false;
-/** Generation indices received from the server but not yet shown (waiting for arena to finish). */
+// |---Generation queue and playback flags---|
 let pendingArenaGenIndices = [];
-/** Single-genome replay: episode ended (stepSim returned done). */
 let singleEpisodeComplete = false;
-/** When true, new generations will not call startLoop() until the user presses Play. */
 let suppressAutoPlayUntilPlay = false;
 
 function maybeEvolutionAutoPlay() {

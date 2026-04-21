@@ -1,3 +1,4 @@
+/* |---Laser Evade theme---| */
 :root {
   --bg: #0d1014;
   --panel: #141920;
@@ -20,7 +21,7 @@
   box-sizing: border-box;
 }
 
-/* Dark, slim scrollbars; thumb fades in on hover so chrome stays quiet */
+/* |---Scrollbars---| */
 html {
   scrollbar-color: rgba(48, 54, 61, 0.35) transparent;
   scrollbar-width: thin;
@@ -108,7 +109,7 @@ h2 {
     grid-template-columns: 1fr;
   }
 
-  /* Lower order renders first: game, then left settings, then playback/chart */
+  /* |---Responsive layout order---| */
   .stage {
     order: 0;
   }
@@ -585,7 +586,7 @@ button.primary:hover:not(:disabled) {
   scrollbar-color: #484f58 #07090c;
 }
 
-/* WebKit: slim dark thumbs; stronger when the scrollable region is hovered */
+/* |---WebKit scrollbars---| */
 .sidebar::-webkit-scrollbar,
 .gen-strip::-webkit-scrollbar,
 .gen-log::-webkit-scrollbar {

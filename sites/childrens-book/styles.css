@@ -1,20 +1,4 @@
-/*
- * styles.css — sitewide look
- *
- * Change in :root
- *   --color-*     brand colors (coral buttons, teal accents, cream background, etc.)
- *   --font-*      Google Fonts used in index.html must match these names
- *   --radius-*, --shadow-*, --max-width, --header-height
- *
- * Book cover art (no HTML change needed)
- *   .book-face { background-image: url('cover.jpg'); background-size: cover; background-position: center; }
- *   Or set cover on .book-mockup; remove or hide .book-placeholder-title / .book-placeholder-by in HTML if unused.
- * Author photo
- *   .author-photo { background-image: url('author.jpg'); } and adjust background-size / position
- *
- * Peek inside
- *   .spread-placeholder — swap for real art in HTML as <img> inside .spread, or style placeholders here
- */
+/* |---Design tokens---| */
 :root {
   --color-cream: #fff8f0;
   --color-ink: #2d2a32;
@@ -132,7 +116,7 @@ a:hover {
   top: 1rem;
 }
 
-/* Header */
+/* |---Header---| */
 .site-header {
   position: sticky;
   top: 0;
@@ -256,7 +240,7 @@ a:hover {
   }
 }
 
-/* Hero */
+/* |---Hero---| */
 .hero {
   position: relative;
   padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(3rem, 8vw, 6rem);
@@ -404,7 +388,7 @@ a:hover {
   background: var(--color-sun);
 }
 
-/* Book mockup — add your cover: .book-face { background-image: url('cover.jpg'); background-size: cover; } */
+/* |---Book mockup---| */
 .hero-cover {
   display: flex;
   flex-direction: column;
@@ -454,7 +438,7 @@ a:hover {
   color: rgba(45, 42, 50, 0.75);
 }
 
-/* Sections */
+/* |---Content sections---| */
 .section {
   padding: clamp(3rem, 7vw, 5rem) 0;
 }
@@ -941,7 +925,7 @@ a:hover {
   font-weight: 600;
 }
 
-/* Footer */
+/* |---Footer---| */
 .site-footer {
   padding: 1.5rem 0 2rem;
   border-top: 1px solid rgba(45, 42, 50, 0.08);

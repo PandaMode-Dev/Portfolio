@@ -1,30 +1,5 @@
 (function () {
-  /*
-   * =============================================================================
-   * ADJUST THIS SITE — quick map
-   * =============================================================================
-   * BOOK_DIRECT     → Your book name, email, trailer URL, PayPal links, editions
-   * NEWSLETTER      → Form endpoint for “Notify me” (Formspree or any form POST URL)
-   * SITE_COPY       → Button labels & short hints visitors see in the buy box
-   * mailto template → Inside form submit (search "Mailto fallback") — order email body
-   *
-   * BOOK_DIRECT fields
-   * ------------------
-   * contactEmail          Mail when an edition has no Stripe URL and no PayPal
-   * bookTitle             Buy card title + mailto subject
-   * bookTrailerEmbedUrl   Full iframe src (YouTube/Vimeo). "" = hide #video + Trailer nav
-   * retailerPaypalUrl     Big PayPal button in #buy. "" = hide
-   * defaultPaypalUrl      Fallback if an edition’s paypalUrl is ""
-   *
-   * editions[] per row
-   * ------------------
-   * id, label, priceLabel   Dropdown + order summary
-   * checkoutUrl             Stripe Payment Link or HTTPS checkout. "" = no card flow
-   * paypalUrl               PayPal.me / product link. "" = use defaultPaypalUrl
-   *
-   * Flow: submit → checkoutUrl if set; else PayPal; else mailto.
-   *       If both checkoutUrl and PayPal exist, second PayPal button shows.
-   */
+  // |---Book shop and checkout config---|
   var BOOK_DIRECT = {
     contactEmail: "you@example.com",
     bookTitle: "Your Magical Book Title",
@@ -49,40 +24,14 @@
     ],
   };
 
-  /**
-   * NEWSLETTER — “Notify me” on the site (#newsletter-form)
-   *
-   *
-   *  1. Go to https://formspree.io and create a free account if needed.
-   *  2. Create a new form; copy its URL (looks like https://formspree.io/f/xxxxxxxx).
-   *  3. Paste that URL into formAction below.
-   *  4. Deploy your site and submit a test email from the live page (Formspree often blocks
-   *  localhost until the form is confirmed).
-   *
-   * What you get with Formspree
-   *   Each signup can notify you by email. You can see and export subscribers in the Formspree
-   *   dashboard (CSV, etc.).
-   *
-   * Emailing everyone who signed up (“broadcast”)
-   *   Formspree is mainly capture + notifications. For real newsletters, either connect Formspree
-   *   to a tool like Mailchimp or Buttondown (see Formspree’s integrations/docs), or export your
-   *   list and import it into the newsletter tool you use.
-   *
-   * stayOnPage
-   *   true  → Submits in the background with fetch; visitors stay on the page (works with Formspree).
-   *   false → Normal browser form POST + redirect. Use for some Mailchimp (or similar) embeds that
-   *           expect a full page POST; you may need their hidden fields in index.html on the form.
-   *
-   * ownerEmailSubject
-   *   Optional. Sent as Formspree’s _subject so notification emails are easy to spot in your inbox.
-   */
+  // |---Newsletter signup endpoint---|
   var NEWSLETTER = {
     formAction: "",
     stayOnPage: true,
     ownerEmailSubject: "New signup from book site",
   };
 
-  /** All visitor-facing sentences in the buy-direct form — edit tone/length here only. */
+  // |---Buy-direct form copy for visitors---|
   var SITE_COPY = {
     submitWithCard: "Continue to checkout",
     submitWithPayPalOnly: "Continue with PayPal",
@@ -95,7 +44,7 @@
     invalidEmail: "Enter a valid email, or leave the field blank.",
   };
 
-  // --- Stripe: optional ?prefilled_email= on stripe.com checkout URLs only
+  // |---Stripe checkout URL helpers---|
   function appendStripePrefill(url, email) {
     if (!email) return url;
     if (!/stripe\.com/i.test(url)) return url;
@@ -116,7 +65,7 @@
     return (BOOK_DIRECT.defaultPaypalUrl || "").trim();
   }
 
-  // --- Trailer iframe: set src, or hide #video + nav link when URL empty
+  // |---Book trailer iframe---|
   function initBookTrailer() {
     var iframe = document.getElementById("book-trailer-iframe");
     var url = (BOOK_DIRECT.bookTrailerEmbedUrl || "").trim();
@@ -131,7 +80,7 @@
     if (navLink) navLink.hidden = true;
   }
 
-  // --- Retailer PayPal CTA in #buy (BOOK_DIRECT.retailerPaypalUrl)
+  // |---Retailer PayPal button---|
   function initRetailPayPal() {
     var link = document.getElementById("retail-paypal");
     if (!link) return;
@@ -144,7 +93,7 @@
     }
   }
 
-  // --- Buy-direct form: edition select, summary, Stripe / PayPal / mailto
+  // |---Buy direct form (editions, Stripe, PayPal, mailto)---|
   function initBuyDirect() {
     var form = document.getElementById("buy-direct-form");
     var select = document.getElementById("buy-direct-edition");
@@ -242,7 +191,7 @@
         return;
       }
 
-      // --- Mailto fallback: edit subject/body wording to match how you take orders
+      // |---Mailto order fallback---|
       var subject =
         "Direct order: " + BOOK_DIRECT.bookTitle + " (" + ed.label + " " + ed.priceLabel + ")";
       var body =
@@ -271,6 +220,7 @@
     });
   }
 
+  // |---Newsletter hidden field helper---|
   function newsletterEnsureHidden(form, name, value) {
     var found = form.elements.namedItem(name);
     var el =
@@ -288,7 +238,7 @@
     el.value = value;
   }
 
-  // --- Newsletter: #newsletter-form → Formspree or custom POST URL
+  // |---Newsletter form submit---|
   function initNewsletter() {
     var form = document.getElementById("newsletter-form");
     var status = document.getElementById("newsletter-status");
@@ -351,7 +301,7 @@
     });
   }
 
-  // --- Footer year + mobile nav (IDs: site-nav, .nav-toggle)
+  // |---Footer year and mobile nav---|
   var nav = document.getElementById("site-nav");
   var toggle = document.querySelector(".nav-toggle");
   var yearEl = document.getElementById("year");

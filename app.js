@@ -12,6 +12,7 @@
   const ROCKET_TILT_DEG = 10;
   const ROCKET_SCALE_BOOST = 0.14;
 
+  // |---Rocket ship icon badges---|
   function renderShipIcons() {
     if (!iconStack) return;
     const items = window.resumeShipIcons;
@@ -61,6 +62,7 @@
 
   let ticking = false;
 
+  // |---Scroll progress and rocket motion---|
   function scrollProgress() {
     const doc = document.documentElement;
     const scrollTop = window.scrollY || doc.scrollTop;
@@ -104,7 +106,7 @@
   window.addEventListener("resize", onScroll);
   updateRocket();
 
-  /* ---- Scroll-driven section reveals ---- */
+  // |---Section reveal on scroll---|
   if (!reduced) {
     const revealEls = document.querySelectorAll("[data-reveal]");
     if (revealEls.length && "IntersectionObserver" in window) {
@@ -130,7 +132,7 @@
     });
   }
 
-  /* ---- Nav: active section ---- */
+  // |---Nav highlight for current section---|
   const navLinks = document.querySelectorAll(".nav a[href^='#']");
   const sectionIds = [];
   navLinks.forEach(function (a) {
@@ -167,7 +169,7 @@
   window.addEventListener("scroll", onScrollNav, { passive: true });
   updateActiveNav();
 
-  /* ---- Nav: Websites dropdown ---- */
+  // |---Websites dropdown menu---|
   const navDropdown = document.querySelector("[data-nav-dropdown]");
   if (navDropdown) {
     const trigger = navDropdown.querySelector(".nav-dropdown-trigger");
@@ -211,7 +213,7 @@
     }
   }
 
-  /* ---- Project cards: tilt on pointer ---- */
+  // |---Pointer tilt on project cards---|
   if (!reduced) {
     document.querySelectorAll("[data-tilt]").forEach(function (card) {
       card.addEventListener("pointermove", function (e) {
