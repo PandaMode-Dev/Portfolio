@@ -167,6 +167,52 @@
   window.addEventListener("scroll", onScrollNav, { passive: true });
   updateActiveNav();
 
+  /* ---- Nav: Websites dropdown ---- */
+  const navDropdown = document.querySelector("[data-nav-dropdown]");
+  if (navDropdown) {
+    const trigger = navDropdown.querySelector(".nav-dropdown-trigger");
+    const panel = navDropdown.querySelector(".nav-dropdown-panel");
+    const links = panel ? panel.querySelectorAll(".nav-dropdown-link") : [];
+
+    function setOpen(open) {
+      navDropdown.classList.toggle("is-open", open);
+      if (trigger) trigger.setAttribute("aria-expanded", open ? "true" : "false");
+      if (panel) panel.hidden = !open;
+    }
+
+    function isOpen() {
+      return navDropdown.classList.contains("is-open");
+    }
+
+    if (trigger && panel) {
+      trigger.addEventListener("click", function (e) {
+        e.stopPropagation();
+        setOpen(!isOpen());
+      });
+
+      document.addEventListener("click", function () {
+        if (isOpen()) setOpen(false);
+      });
+
+      navDropdown.addEventListener("click", function (e) {
+        e.stopPropagation();
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && isOpen()) {
+          setOpen(false);
+          trigger.focus();
+        }
+      });
+
+      links.forEach(function (link) {
+        link.addEventListener("click", function () {
+          setOpen(false);
+        });
+      });
+    }
+  }
+
   /* ---- Project cards: tilt on pointer ---- */
   if (!reduced) {
     document.querySelectorAll("[data-tilt]").forEach(function (card) {

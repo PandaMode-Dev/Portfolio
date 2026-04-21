@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!--
+    CUSTOMIZE index.html (visitors do not see this block)
+
+    <head>
+      • meta description, <title>
+      • Optional: <link rel="icon" href="favicon.ico" />
+
+    Header & hero
+      • .logo text, nav labels (# anchors must match section ids)
+      • Eyebrow, <h1>, lead paragraph, hero badge lines
+      • .book-placeholder-title / .book-placeholder-by — or replace mockup with <img> (see styles.css .book-face)
+
+    Sections
+      • Story, peek figcaptions; replace .spread-placeholder divs with <img alt="…"> if you have spreads
+      • #video: update iframe title; embed URL is set in script.js → bookTrailerEmbedUrl (empty = hide section)
+      • Author copy; .author-photo — swap for <img> or background-image in CSS
+      • Review quotes and attributions
+
+    Buy direct (#buy-direct)
+      • Intro copy, trust strip bullets, fineprint
+      • Book title in .buy-direct-card-head is overwritten by script.js → bookTitle (keep in sync or rely on JS)
+
+    Retailers (#buy)
+      • Bookshop <a href> — use your Bookshop.org affiliate or book page URL
+      • PayPal button href is also driven by script.js → retailerPaypalUrl (must match your PayPal.me / payment link)
+
+    Newsletter
+      • form action="#" — replace with your ESP (Mailchimp, Buttondown, etc.) form action URL; add hidden fields they require
+
+    Footer
+      • .footer-brand names; Contact mailto:; Press kit link; Instagram (or other social) URLs
+  -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A heartwarming children's picture book — order your copy today." />
+  <title>Your Book Title — Children's Picture Book</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#">Your Book Title</a>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary">
+        <a href="#story">The story</a>
+        <a href="#peek">Peek inside</a>
+        <a href="#video">Trailer</a>
+        <a href="#author">Author</a>
+        <a href="#reviews">Praise</a>
+        <a href="#buy">Retailers</a>
+        <a class="nav-cta" href="#buy-direct">Buy direct</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">A picture book for ages 3–7</p>
+          <h1>Your Magical Book Title</h1>
+          <p class="lead">
+            A gentle adventure about finding courage in the smallest moments — perfect for bedtime and classroom read-alouds.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#buy-direct">Buy direct</a>
+            <a class="btn btn-ghost" href="#buy">Bookstores</a>
+            <a class="btn btn-ghost" href="#story">Read more</a>
+          </div>
+          <ul class="hero-badges" role="list">
+            <li>32 pages · hardcover &amp; paperback</li>
+            <li>Themes: kindness, courage, friendship</li>
+          </ul>
+        </div>
+        <div class="hero-cover">
+          <div class="book-mockup" role="img" aria-label="Book cover">
+            <div class="book-spine"></div>
+            <div class="book-face">
+              <span class="book-placeholder-title">Your Title</span>
+              <span class="book-placeholder-by">by Your Name</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="story" class="section section-story">
+      <div class="container narrow">
+        <h2>The story</h2>
+        <p>
+          When little Mira discovers something sparkling at the edge of the garden, she isn’t sure she’s brave enough to
+          follow it — until a new friend reminds her that courage can be as simple as taking one small step.
+        </p>
+        <p>
+          Told with warmth, rhythm, and art full of wonder, this is a story about friendship, trying again, and the magic
+          of believing you can.
+        </p>
+      </div>
+    </section>
+
+    <section id="peek" class="section section-peek">
+      <div class="container">
+        <h2>Peek inside</h2>
+        <p class="section-intro">A few favorite moments from inside the book.</p>
+        <div class="spread-grid">
+          <figure class="spread">
+            <div class="spread-placeholder" aria-hidden="true"></div>
+            <figcaption>Mira peeks through the garden gate at sunrise.</figcaption>
+          </figure>
+          <figure class="spread">
+            <div class="spread-placeholder" aria-hidden="true"></div>
+            <figcaption>A new friend shares a secret only the brave can hear.</figcaption>
+          </figure>
+          <figure class="spread">
+            <div class="spread-placeholder" aria-hidden="true"></div>
+            <figcaption>Home again — with a little more sparkle than before.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="video" class="section section-video" aria-labelledby="video-heading">
+      <div class="container narrow">
+        <h2 id="video-heading">Book trailer</h2>
+        <p class="section-intro">
+          Trailer, flip-through, or a read-aloud — share it for story time, events, and social posts.
+        </p>
+        <div class="video-frame">
+          <iframe
+            id="book-trailer-iframe"
+            title="Book trailer: Your Magical Book Title"
+            width="780"
+            height="438"
+            src="about:blank"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section id="author" class="section section-author">
+      <div class="container author-grid">
+        <div class="author-photo" role="img" aria-label="Author photo">
+          <span>Photo</span>
+        </div>
+        <div>
+          <h2>About the author</h2>
+          <p>
+            <strong>Your Name</strong> writes and illustrates stories for curious kids. This book began as a sketch on a
+            rainy afternoon and grew into the tale Mira’s readers know today.
+          </p>
+          <p>
+            When not at the desk, you’ll find them at the library, in the garden, or reading aloud with a very opinionated
+            cat nearby.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" class="section section-reviews">
+      <div class="container">
+        <h2>Kind words</h2>
+        <div class="review-grid">
+          <blockquote class="review-card">
+            <p>“Sweet, reassuring, and beautifully paced — our class asked for it three days in a row.”</p>
+            <footer>— Jordan Lee, elementary teacher</footer>
+          </blockquote>
+          <blockquote class="review-card">
+            <p>“The kind of bedtime story grown-ups secretly enjoy too. We’ll be watching for the next book.”</p>
+            <footer>— The Little Readers Blog</footer>
+          </blockquote>
+          <blockquote class="review-card">
+            <p>“Gorgeous art and a hero kids can see themselves in. A new shelf essential.”</p>
+            <footer>— Riverbend Books</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section id="buy-direct" class="section section-buy-direct" aria-labelledby="buy-direct-heading">
+      <div class="container buy-direct-layout">
+        <div class="buy-direct-intro">
+          <p class="eyebrow">Support the author</p>
+          <h2 id="buy-direct-heading">Buy direct</h2>
+          <p class="buy-direct-lead">
+            Order straight from the studio — the same story, optional signing, and more of each sale supports the next
+            book.
+          </p>
+        </div>
+        <div class="buy-direct-card">
+          <div class="buy-direct-card-head">
+            <p class="buy-direct-card-kicker">Order</p>
+            <p id="buy-direct-book-title" class="buy-direct-card-title">Your Magical Book Title</p>
+          </div>
+          <ul class="buy-trust-strip" role="list">
+            <li>Secure checkout</li>
+            <li>Encrypted payment</li>
+            <li>Email receipt</li>
+          </ul>
+          <form id="buy-direct-form" class="buy-direct-form" novalidate>
+            <div class="buy-order-summary" aria-live="polite">
+              <div class="buy-order-summary-row">
+                <span class="buy-order-label">Edition</span>
+                <span id="buy-direct-summary-edition" class="buy-order-value">—</span>
+              </div>
+              <div class="buy-order-summary-row buy-order-summary-total">
+                <span class="buy-order-label">Total</span>
+                <span id="buy-direct-summary-price" class="buy-order-price">—</span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="buy-direct-edition">Choose edition</label>
+              <select id="buy-direct-edition" name="edition" required></select>
+            </div>
+            <div class="field">
+              <label for="buy-direct-email">Email <span class="label-hint">for your receipt</span></label>
+              <input
+                id="buy-direct-email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="you@example.com"
+              />
+            </div>
+            <p id="buy-direct-hint" class="buy-direct-hint" role="status"></p>
+            <div class="buy-direct-actions">
+              <button type="submit" id="buy-direct-submit" class="btn btn-primary btn-large buy-direct-submit">
+                Continue to checkout
+              </button>
+              <a
+                id="buy-direct-paypal"
+                class="btn btn-paypal btn-large buy-direct-paypal"
+                href="#"
+                rel="noopener noreferrer"
+                target="_blank"
+                hidden
+              >
+                Pay with PayPal
+              </a>
+            </div>
+          </form>
+          <p class="buy-direct-fineprint">
+            You will be redirected to a secure payment page. A confirmation is sent to the email you provide when
+            supported by your payment method.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="buy" class="section section-buy">
+      <div class="container buy-inner">
+        <h2>Also at bookstores</h2>
+        <p class="buy-lead">Indie bookshop or PayPal — pick what works for you.</p>
+        <div class="buy-buttons">
+          <a class="btn btn-primary btn-large" href="https://bookshop.org" rel="noopener noreferrer" target="_blank">Bookshop</a>
+          <a
+            id="retail-paypal"
+            class="btn btn-paypal btn-large"
+            href="https://www.paypal.com/paypalme/yourname"
+            rel="noopener noreferrer"
+            target="_blank"
+            >Pay with PayPal</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section id="newsletter" class="section section-newsletter">
+      <div class="container newsletter-inner">
+        <h2>Stay in the loop</h2>
+        <p>Sign up for launch news, local events, and occasional notes from the author.</p>
+        <form id="newsletter-form" class="signup-form" action="#" method="post">
+          <label class="sr-only" for="newsletter-email">Email</label>
+          <input
+            id="newsletter-email"
+            name="email"
+            type="email"
+            placeholder="you@example.com"
+            required
+            autocomplete="email"
+          />
+          <button type="submit" class="btn btn-primary">Notify me</button>
+        </form>
+        <p id="newsletter-status" class="newsletter-status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">© <span id="year"></span> Your Name · Your Book Title</p>
+      <div class="footer-links">
+        <a href="mailto:you@example.com">Contact</a>
+        <a href="#">Press kit</a>
+        <a href="https://instagram.com" rel="noopener noreferrer" target="_blank">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

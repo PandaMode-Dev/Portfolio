@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Laser Evade — Evolution Lab</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <div>
+        <h1>Laser Evade</h1>
+        <p class="sub">One laser at a time: aim snapshot, warning, then burst. Population runs in parallel each generation; in <strong>battle royale</strong> mode the round’s winner teaches everyone next round. Camp a wall too long and spikes appear.</p>
+      </div>
+      <div class="status-pill" id="runStatus">Idle</div>
+    </header>
+
+    <div class="layout">
+      <aside class="panel sidebar sidebar--left">
+        <div class="settings-block">
+        <h2>Simulation</h2>
+        <div class="grid2">
+          <label>Width <input type="number" id="width" value="1" step="0.1" min="0.2" /></label>
+          <label>Height <input type="number" id="height" value="1" step="0.1" min="0.2" /></label>
+          <label>Agent radius <input type="number" id="agent_radius" value="0.02" step="0.005" /></label>
+          <label>Speed <input type="number" id="speed" value="0.018" step="0.002" /></label>
+          <label>Max concurrent lasers <input type="number" id="max_waves" value="1" min="1" max="12" /></label>
+          <label>Max concurrent (late cap) <input type="number" id="max_waves_max" value="1" min="1" max="16" title="Leave 1 for strict single-beam mode" /></label>
+          <label>Spawn chance / step (early) <input type="number" id="spawn_prob" value="0.22" step="0.02" min="0" max="1" /></label>
+          <label>Spawn chance / step (late) <input type="number" id="spawn_prob_max" value="0.88" step="0.02" min="0" max="1" title="Ramps up; use ~1 for almost immediate next shot after dodge" /></label>
+          <label>Warning (steps, early) <input type="number" id="warning_steps" value="90" min="4" title="Longer at start of episode" /></label>
+          <label>Warning (steps, late) <input type="number" id="warning_steps_late" value="12" min="1" title="Must be ≤ early; shrinks as run progresses" /></label>
+          <label>Beam alive (early) <input type="number" id="beam_lifetime_steps" value="56" min="4" /></label>
+          <label>Beam alive (late) <input type="number" id="beam_lifetime_steps_late" value="22" min="1" title="Must be ≤ early" /></label>
+          <label>Beam max length <input type="number" id="beam_max_length" value="0" step="0.1" title="0 = auto (2× diagonal)" /></label>
+          <label>Laser thickness <input type="number" id="laser_thickness" value="0.028" step="0.005" /></label>
+          <label>Dodge score weight <input type="number" id="dodge_score_weight" value="28" step="1" title="GA: reward per beam survived" /></label>
+          <label>Rays (sensors) <input type="number" id="num_rays" value="12" min="4" /></label>
+          <label>Max ray length <input type="number" id="max_ray_len" value="1.5" step="0.1" /></label>
+          <label>Max steps / episode <input type="number" id="max_steps" value="500" min="50" /></label>
+        </div>
+        </div>
+
+        <div class="settings-block">
+        <h2>Fitness shaping</h2>
+        <p class="hint">Training only: rewards open space, dodging, and moving away from beams in the hazard band; penalizes wall camping, lingering in that band, and dying. The playback HUD uses the same total.</p>
+        <div class="grid2">
+          <label>Center bonus weight <input type="number" id="center_clearance_weight" value="0.18" step="0.02" min="0" /></label>
+          <label>Wall hug penalty / step <input type="number" id="wall_hug_penalty_weight" value="0.65" step="0.05" min="0" /></label>
+          <label>Hazard margin (arena) <input type="number" id="hazard_margin_zone" value="0.078" step="0.005" min="0.02" title="Within this clearance of a beam/spike, proximity penalty ramps up" /></label>
+          <label>Hazard proximity penalty <input type="number" id="hazard_proximity_penalty" value="0.52" step="0.05" min="0" title="Max extra penalty per step when inside margin" /></label>
+          <label>Hazard escape bonus <input type="number" id="hazard_escape_bonus_weight" value="14" step="1" min="0" title="Points per unit distance you increase clearance while inside the hazard margin (retreat / dodge)" /></label>
+          <label>Hazard exit bonus <input type="number" id="hazard_zone_exit_bonus" value="0.45" step="0.05" min="0" title="One-shot bonus when leaving the hazard margin outward" /></label>
+          <label>Death penalty <input type="number" id="death_penalty" value="48" step="1" min="0" title="Subtracted from fitness when hit by beam or spike" /></label>
+        </div>
+        </div>
+
+        <div class="settings-block">
+        <h2>Wall spikes</h2>
+        <p class="hint">Stay near a wall for too many steps in a row and lethal spikes jut inward (same randomness as training).</p>
+        <div class="grid2">
+          <label class="checkrow" style="grid-column: span 2"><input type="checkbox" id="spike_enabled" checked /> Enable wall spikes</label>
+          <label>Hug margin <input type="number" id="wall_hug_margin" value="0" step="0.005" min="0" title="0 = auto (3.25× agent radius)" /></label>
+          <label>Hug steps → spikes <input type="number" id="spike_trigger_steps" value="40" min="0" max="300" title="0 disables spikes" /></label>
+          <label>Spike depth <input type="number" id="spike_depth" value="0.048" step="0.005" /></label>
+          <label>Spike thickness <input type="number" id="spike_thickness" value="0.024" step="0.005" /></label>
+          <label>Spikes count min <input type="number" id="spike_count_min" value="5" min="1" max="20" /></label>
+          <label>Spikes count max <input type="number" id="spike_count_max" value="9" min="1" max="30" /></label>
+          <label>Spike alive (steps) <input type="number" id="spike_lifetime_steps" value="100" min="10" /></label>
+          <label>Spike cooldown (steps) <input type="number" id="spike_cooldown_steps" value="50" min="0" /></label>
+        </div>
+        </div>
+
+        <div class="settings-block">
+        <h2>Evolution</h2>
+        <p class="hint">Everyone is scored each generation. How the next batch is built depends on the mode below.</p>
+        <label class="checkrow checkrow--card">
+          <input type="checkbox" id="battle_royale" checked />
+          <span><strong>Battle royale</strong> — highest-scoring agent teaches the next generation (elite slots are exact copies, the rest are mutated copies). <strong>Classic GA</strong> — turn this off for tournament parents and crossover.</span>
+        </label>
+        <div class="grid2">
+          <label>Generations <input type="number" id="generations" value="35" min="2" /></label>
+          <label>Population <input type="number" id="population" value="50" min="4" title="Agents evaluated each generation" /></label>
+          <label>Hidden neurons <input type="number" id="hidden" value="18" min="4" /></label>
+          <label>Elite <input type="number" id="elite" value="8" min="1" title="Battle royale: exact champion clones. Classic: top genomes copied unchanged." /></label>
+          <label>Tournament k <input type="number" id="tournament_k" value="5" min="2" title="Classic GA only: pick best of k parents" /></label>
+          <label>Crossover <input type="number" id="crossover_rate" value="0.65" step="0.05" title="Classic GA only: fraction of weights swapped between parents" /></label>
+          <label>Mutation rate <input type="number" id="mutation_rate" value="0.08" step="0.01" /></label>
+          <label>Mutation σ <input type="number" id="mutation_sigma" value="0.35" step="0.05" /></label>
+          <label>Eval workers <input type="number" id="eval_workers" value="0" min="0" max="64" title="0 = use all CPU cores (up to 16); 1 = one-at-a-time" /></label>
+          <label>GA seed <input type="number" id="seed" value="0" min="0" /></label>
+          <label>Arena seed <input type="text" id="layout_seed" value="" placeholder="random" inputmode="numeric" /></label>
+          <label class="checkrow" style="grid-column: span 2"><input type="checkbox" id="parallel_eval" checked /> Parallel fitness (multi-core)</label>
+        </div>
+
+        <button type="button" class="primary" id="btnEvolve">Run evolution</button>
+        <p class="hint">Parallel evaluation scores the whole population each generation. Raise population or elite for a stronger “teacher” signal in battle royale.</p>
+        </div>
+      </aside>
+
+      <section class="stage" aria-label="Game view">
+        <div class="game-frame">
+          <div class="game-frame__label">Arena</div>
+          <canvas id="arena" width="560" height="560" aria-label="Laser arena"></canvas>
+          <p class="arena-hint">Bright dot = round winner (highest fitness). Dim dots = everyone else in the same generation, each in a parallel episode. Beams/spikes follow the winner’s world. The view advances only after all dots finish; the server then builds the next generation from that winner (battle royale) or classic GA if you disabled it.</p>
+          <div class="hud">
+            <span id="hudGen">Generation —</span>
+            <span id="hudHigh" class="hud-high">High score (evolution) —</span>
+            <span id="hudStep">This run —</span>
+            <span id="hudFit">This gen —</span>
+            <span id="hudState" class="ok">—</span>
+          </div>
+        </div>
+
+        <div class="gen-panel panel">
+          <div class="gen-panel__head">
+            <h2>Generations</h2>
+            <span class="gen-panel__hint">Each dot is one generation (darker = lower best fitness). Click a dot or use the slider on the right.</span>
+          </div>
+          <div class="gen-strip-wrap">
+            <div class="gen-strip" id="genStrip" role="list"></div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel sidebar sidebar--right">
+        <div class="settings-block">
+        <h2>Playback</h2>
+        <div class="playback-row">
+          <label class="grow">Generation
+            <input type="range" id="genSlider" min="0" max="0" value="0" disabled />
+          </label>
+          <div class="gen-readout" id="genReadout">0 / 0</div>
+        </div>
+        <div class="playback-row">
+          <label>Sim speed
+            <input type="range" id="speedSlider" min="1" max="24" value="4" />
+          </label>
+          <span id="speedReadout">4×</span>
+        </div>
+        <div class="btn-row">
+          <button type="button" id="btnPlay" disabled>Play</button>
+          <button type="button" id="btnPause" disabled>Pause</button>
+          <button type="button" id="btnRestart" disabled>Restart episode</button>
+        </div>
+        <label class="checkrow">
+          <input type="checkbox" id="autoPlayEvolve" checked />
+          <span>Auto-play each new generation (agent keeps moving while evolving)</span>
+        </label>
+        </div>
+
+        <div class="chart-wrap chart-wrap--in-sidebar">
+          <div class="chart-head">
+            <h2>Fitness</h2>
+            <span class="legend"><i class="dot best"></i> best <i class="dot mean"></i> mean <i class="dot ever"></i> best ever</span>
+          </div>
+          <canvas id="chart" width="320" height="180"></canvas>
+        </div>
+      </aside>
+    </div>
+
+    <section class="gen-log-panel panel" aria-label="Generation log">
+      <h2>Generation log</h2>
+      <p class="hint gen-log-panel__hint">Per-generation deaths (lethal beam vs spike vs survived max steps), mean scores, and what the population struggled with. On this static copy (e.g. GitHub Pages), evolution runs in your browser; the Python server log file is not used.</p>
+      <pre class="gen-log" id="genLog" aria-live="polite"></pre>
+    </section>
+  </div>
+  <script src="assets/evolve-browser.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
