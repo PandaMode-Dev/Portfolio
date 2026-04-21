@@ -2,6 +2,25 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      (function () {
+        if (location.protocol === "file:") return;
+        var path = location.pathname;
+        if (!path || path === "/") return;
+        var dir = path;
+        if (!dir.endsWith("/")) {
+          if (/\.html$/i.test(dir)) {
+            dir = dir.replace(/[^/]+$/, "");
+          } else {
+            dir = dir + "/";
+          }
+        }
+        if (!dir.endsWith("/")) dir += "/";
+        var b = document.createElement("base");
+        b.href = dir;
+        document.head.prepend(b);
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
